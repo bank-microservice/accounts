@@ -21,6 +21,9 @@ public class Account implements Serializable {
     @Column(name = "accountBalance")
     private double accountBalance;
 
+    private String username;
+
+    private String password;
 
     public int getId() {
         return id;
@@ -28,6 +31,22 @@ public class Account implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String uname) {
+        this.password = uname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String pass) {
+        this.username = pass;
     }
 
     public double getAccountBalance() {

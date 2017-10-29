@@ -15,8 +15,8 @@ cache:
 
 script:
   - mvn clean package -U
-  - docker build -t bank-microservice/accounts .
+  - docker build -t rokplevel/bank .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push bank-microservice/accounts
+  - docker push rokplevel/bank
