@@ -4,7 +4,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD ./target/accounts-1.0.0-SNAPSHOT-uber.jar /app
+ADD /home/travis/build/bank-microservice/accounts/target/accounts-1.0.0-SNAPSHOT-uber.jar /app
 
 EXPOSE 8080
 
