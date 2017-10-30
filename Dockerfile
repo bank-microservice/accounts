@@ -4,8 +4,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD ./target/accounts-1.0.0-SNAPSHOT.jar /app
+ADD ./api/target/accounts-api-1.0.0-SNAPSHOT.jar /app
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "accounts-1.0.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "accounts-api-1.0.0-SNAPSHOT.jar"]

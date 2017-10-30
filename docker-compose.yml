@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bank
   bank-accounts:
-    image: rokplevel/bank
+    image: rokplevel/bank-accounts
     ports:
       - 8080:8080
     environment:

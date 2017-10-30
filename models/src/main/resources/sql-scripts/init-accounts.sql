@@ -1,0 +1,3 @@
+INSERT INTO account (id, date_of_birth, username, password, balance) VALUES (1, TIMESTAMP '2006-01-01 15:36:38', 'James', 'Smith', 1000.0);
+INSERT INTO account (id, date_of_birth, username, password, balance) VALUES (2, TIMESTAMP '2009-03-17 15:36:38', 'John', 'Williams', 1200.0);
+INSERT INTO account (id, date_of_birth, username, password, balance) VALUES (3, TIMESTAMP '2013-11-29 15:36:38', 'Robert', 'Jones', 350.5);

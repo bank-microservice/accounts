@@ -15,8 +15,8 @@ cache:
 
 script:
   - mvn clean package -U
-  - docker build -t rokplevel/bank .
+  - docker build -t rokplevel/bank-accounts .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push rokplevel/bank
+  - docker push rokplevel/bank-accounts

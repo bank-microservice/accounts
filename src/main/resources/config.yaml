@@ -1,7 +1,0 @@
-kumuluzee:
-  datasources:
-    - jndi-name: jdbc/BankDS
-      connection-url: jdbc:postgresql://localhost:5432/bank
-      username: postgres
-      password: postgres
-      max-pool-size: 20
