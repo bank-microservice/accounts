@@ -1,6 +1,7 @@
 package com.rso.bank.accounts.services;
 
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.rest.beans.QueryParameters;
@@ -24,6 +25,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequestScoped
@@ -42,12 +44,14 @@ public class AccountsBean {
 
     private Client httpClient;
 
-    private String baseUrl;
+    @Inject
+    @DiscoverService("bank-transactions")
+    private Optional<String> baseUrl;
 
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://localhost:8081"; // only for demonstration
+        //baseUrl = "http://localhost:8081"; // only for demonstration
     }
 
 

@@ -9,14 +9,14 @@ import javax.enterprise.context.ApplicationScoped;
 @ConfigBundle("rest-properties")
 public class RestProperties {
 
-    @ConfigValue(value = "external-services.order-service.enabled", watch = true)
+    @ConfigValue(value = "external-services.transaction-service.enabled", watch = true)
     private boolean transactionServiceEnabled;
 
     public boolean isTransactionServiceEnabled() {
         return transactionServiceEnabled;
     }
 
-    public void setTransactionServiceEnabled(boolean orderServiceEnabled) {
-        this.transactionServiceEnabled = orderServiceEnabled;
+    public void setTransactionServiceEnabled(boolean transactionServiceEnabled) {
+        this.transactionServiceEnabled = transactionServiceEnabled;
     }
 }

@@ -16,7 +16,10 @@ kumuluzee:
   config:
     etcd:
       hosts: http://localhost:2379
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
 rest-properties:
   external-services:
-    order-service:
+    transaction-service:
       enabled: true
