@@ -23,9 +23,15 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.rso.bank</groupId>
             <artifactId>accounts-services</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

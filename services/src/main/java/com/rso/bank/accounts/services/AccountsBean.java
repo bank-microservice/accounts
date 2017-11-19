@@ -141,15 +141,21 @@ public class AccountsBean {
 
     public List<Transaction> getTransactions(String accountId) {
 
-        try {
-            return httpClient
-                    .target(baseUrl + "/v1/transactions?where=accountId:EQ:" + accountId)
-                    .request().get(new GenericType<List<Transaction>>() {
-                    });
-        } catch (WebApplicationException | ProcessingException e) {
-            log.error(e);
-            throw new InternalServerErrorException(e);
+        if (baseUrl.isPresent()) {
+
+            try {
+                return httpClient
+                        .target(baseUrl.get() + "/v1/transactions?where=accountId:EQ:" + accountId)
+                        .request().get(new GenericType<List<Transaction>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                throw new InternalServerErrorException(e);
+            }
         }
+
+        return new ArrayList<>();
+
 
     }
 
