@@ -32,10 +32,10 @@ public class DemoResource {
 
         private List<String> clani = Arrays.asList("rp0183");
         private String opis_projekta = "Nas projekt implementira aplikacijo za spletno banko.";
-        private List<String> mikrostoritve = Arrays.asList("http://35.189.96.118:8081/v1/orders", "http://35.197.209.159:8080/v1/customers/");
-        private List<String> github = Arrays.asList("https://github.com/rokplevel/rso-customers", "https://github.com/jmezna/rso-orders");
-        private List<String> travis = Arrays.asList("https://travis-ci.org/jmezna/rso-customers", "https://travis-ci.org/jmezna/rso-orders");
-        private List<String> dockerhub = Arrays.asList("https://hub.docker.com/r/jmezna/rso-customers/", "https://hub.docker.com/r/jmezna/rso-orders/");
+        private List<String> mikrostoritve = Arrays.asList("http://169.51.16.128:30696/v1/accounts/", "http://169.51.16.128:32286/v1/transactions");
+        private List<String> github = Arrays.asList("https://github.com/bank-microservice/accounts", "https://github.com/bank-microservice/transactions");
+        private List<String> travis = Arrays.asList("https://travis-ci.org/bank-microservice/accounts/", "https://travis-ci.org/bank-microservice/transactions/");
+        private List<String> dockerhub = Arrays.asList("https://hub.docker.com/r/rokplevel/bank-accounts/", "https://hub.docker.com/r/rokplevel/bank-transactions/");
 
         public List<String> getClani() {
             return clani;
