@@ -10,14 +10,14 @@ spec:
         app: postgres-accounts
     spec:
       containers:
-        - image: centos/postgresql-94-centos7
+        - image: postgres:9.6.3
           name: postgres-accounts
           env:
-            - name: POSTGRESQL_USER
+            - name: POSTGRES_USER
               value: postgres
-            - name: POSTGRESQL_PASSWORD
+            - name: POSTGREs_PASSWORD
               value: postgres
-            - name: POSTGRESQL_DATABASE
+            - name: POSTGRES_DB
               value: accounts
           ports:
           - containerPort: 5432
