@@ -16,7 +16,7 @@ cache:
 env:
   - DOCKER_IMAGE=rokplevel/bank-accounts
 script:
-  - mvn clean package kumuluzee:compy-dependencies -U
+  - mvn clean package kumuluzee:copy-dependencies -U
   - docker build -t "$DOCKER_IMAGE" .
 
 after_success:
