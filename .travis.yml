@@ -13,10 +13,12 @@ cache:
   directories:
   - $HOME/.m2
 
+env:
+  - DOCKER_IMAGE=rokplevel/bank-accounts
 script:
-  - mvn clean package -U
-  - docker build -t rokplevel/bank-accounts .
+  - mvn clean package kumuluzee:compy-dependencies -U
+  - docker build -t "$DOCKER_IMAGE" .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push rokplevel/bank-accounts
+  - docker push "$DOCKER_IMAGE"

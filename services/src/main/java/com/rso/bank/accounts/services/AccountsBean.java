@@ -6,6 +6,9 @@ import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import com.rso.bank.accounts.models.Account;
 import com.rso.bank.accounts.models.Transaction;
 import com.rso.bank.accounts.services.config.RestProperties;
@@ -138,7 +141,9 @@ public class AccountsBean {
         return true;
     }
 
-
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getTransactionsFallback")
+    @Timeout
     public List<Transaction> getTransactions(String accountId) {
 
         if (baseUrl.isPresent()) {
@@ -154,13 +159,21 @@ public class AccountsBean {
             }
         }
 
-        return new ArrayList<>();
-
-
+        return new ArrayList<Transaction>();
     }
 
     public List<Transaction> getTransactionsFallback(String accountId) {
-        return new ArrayList<>();
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        Transaction transaction = new Transaction();
+
+        transaction.setDescription("N/A");
+        transaction.setTitle("N/A");
+
+        transactions.add(transaction);
+
+        return transactions;
     }
 
 
