@@ -2,6 +2,7 @@ package com.rso.bank.accounts.api.v1.resources;
 
 import com.kumuluz.ee.logs.cdi.Log;
 import com.rso.bank.accounts.models.Account;
+import com.rso.bank.accounts.models.ResponseMessage;
 import com.rso.bank.accounts.models.Transaction;
 import com.rso.bank.accounts.services.AccountsBean;
 
@@ -72,6 +73,17 @@ public class AccountsResource {
 
         return Response.status(Response.Status.OK).entity(transactions).build();
     }
+
+    @POST
+    @Path("/processTransaction")
+    public Response sendTransaction(Transaction transaction) {
+
+        ResponseMessage response = accountsBean.sendTransaction(transaction);
+
+        return Response.status(Response.Status.OK).entity(response).build();
+    }
+
+
 
     @POST
     public Response createAccount(Account account) {

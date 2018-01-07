@@ -6,6 +6,7 @@ import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import com.rso.bank.accounts.models.ResponseMessage;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -24,7 +25,9 @@ import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,7 @@ public class AccountsBean {
 
     @Inject
     @DiscoverService("bank-transactions")
-    private Optional<String> baseUrl;
+    private Optional<String> transactionUrl;
 
     @PostConstruct
     private void init() {
@@ -141,18 +144,53 @@ public class AccountsBean {
         return true;
     }
 
+    public ResponseMessage sendTransaction(Transaction transaction) {
+
+        if (transactionUrl.isPresent()) {
+
+            try {
+
+                Account c = em.find(Account.class, transaction.getAccountId());
+                if (c == null)
+                    return new ResponseMessage("Error",  "Unknown Account ID");
+
+                if (c.getBalance() + transaction.getAmount() < 0)
+                    return new ResponseMessage("Error", "Not enough account balance.");
+
+                Response rs = httpClient
+                        .target(transactionUrl.get() + "/v1/transactions/")
+                        .request()
+                        .post(Entity.json(transaction));
+
+                if (rs.readEntity(Boolean.class)) { //post success
+                    c.setBalance(c.getBalance() + transaction.getAmount());
+                    log.info("Transaction completed!");
+                    return new ResponseMessage("Success", "Transaction completed!");
+                } else {
+                    log.error("Account transaction process failed: " + rs.getStatusInfo().getReasonPhrase());
+                    return new ResponseMessage("Error", "Transaction failed: " + rs.getStatusInfo().getReasonPhrase());
+                }
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                throw new InternalServerErrorException(e);
+            }
+
+        } else {
+            return new ResponseMessage("Error", "Transaction service not available.");
+        }
+    }
+
     @CircuitBreaker(requestVolumeThreshold = 2)
     @Fallback(fallbackMethod = "getTransactionsFallback")
     @Timeout
     public List<Transaction> getTransactions(String accountId) {
 
-        if (baseUrl.isPresent()) {
+        if (transactionUrl.isPresent()) {
 
             try {
                 return httpClient
-                        .target(baseUrl.get() + "/v1/transactions?where=accountId:EQ:" + accountId)
-                        .request().get(new GenericType<List<Transaction>>() {
-                        });
+                        .target(transactionUrl.get() + "/v1/transactions?where=accountId:EQ:" + accountId)
+                        .request().get(new GenericType<List<Transaction>>() { });
             } catch (WebApplicationException | ProcessingException e) {
                 log.error(e);
                 throw new InternalServerErrorException(e);
@@ -192,8 +230,4 @@ public class AccountsBean {
             em.getTransaction().rollback();
     }
 
-    public void loadTransaction(Integer n) {
-
-
-    }
 }

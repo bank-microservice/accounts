@@ -29,7 +29,7 @@
         <kumuluzee-cors.version>1.0.2</kumuluzee-cors.version>
         <kumuluzee-health.version>1.0.0-SNAPSHOT</kumuluzee-health.version>
         <kumuluzee-metrics.version>1.0.0-SNAPSHOT</kumuluzee-metrics.version>
-        <kumuluzee-logs.versio>1.3.0</kumuluzee-logs.versio>
+        <kumuluzee-logs.version>1.3.0</kumuluzee-logs.version>
         <kumuluzee-fault-tolerance.version>1.0.0-SNAPSHOT</kumuluzee-fault-tolerance.version>
         <hystrix-metrics-event-stream.version>1.5.12</hystrix-metrics-event-stream.version>
         <postgresql.version>42.1.4</postgresql.version>
